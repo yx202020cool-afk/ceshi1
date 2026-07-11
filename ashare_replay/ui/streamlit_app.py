@@ -2,15 +2,21 @@ from __future__ import annotations
 
 import html as html_lib
 import json
+import sys
+from pathlib import Path
 from typing import Any
 
 import pandas as pd
 import streamlit as st
 
-from ashare_replay.config import PROJECT_ROOT, load_settings
-from ashare_replay.constants import REPORT_TYPES
-from ashare_replay.services.report import ReportGenerator
-from ashare_replay.time_utils import parse_trade_date
+REPOSITORY_ROOT = Path(__file__).resolve().parents[2]
+if str(REPOSITORY_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPOSITORY_ROOT))
+
+from ashare_replay.config import PROJECT_ROOT, load_settings  # noqa: E402
+from ashare_replay.constants import REPORT_TYPES  # noqa: E402
+from ashare_replay.services.report import ReportGenerator  # noqa: E402
+from ashare_replay.time_utils import parse_trade_date  # noqa: E402
 
 NAV_ITEMS = [
     "今日总览",
