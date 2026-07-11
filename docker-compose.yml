@@ -1,0 +1,87 @@
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: ashare_review_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ashare_review
+      POSTGRES_USER: ashare
+      POSTGRES_PASSWORD: ashare_demo_password
+      TZ: Asia/Shanghai
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ashare -d ashare_review"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    ports:
+      - "127.0.0.1:5432:5432"
+
+  api:
+    build: .
+    container_name: ashare_review_api
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    env_file:
+      - .env
+    environment:
+      DATABASE_URL: postgresql://ashare:ashare_demo_password@db:5432/ashare_review
+      REPORT_OUTPUT_DIR: /app/outputs/reports
+      CONFIG_PATH: /app/configs/default_config.json
+      TZ: Asia/Shanghai
+    volumes:
+      - ./outputs:/app/outputs
+      - ./work/logs:/app/work/logs
+    command: ["uvicorn", "ashare_replay.api:app", "--host", "0.0.0.0", "--port", "8000"]
+    healthcheck:
+      test: ["CMD", "python", "-m", "ashare_replay.cli", "health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    ports:
+      - "127.0.0.1:8000:8000"
+
+  web:
+    build: .
+    container_name: ashare_review_web
+    restart: unless-stopped
+    depends_on:
+      - api
+    env_file:
+      - .env
+    environment:
+      DATABASE_URL: postgresql://ashare:ashare_demo_password@db:5432/ashare_review
+      REPORT_OUTPUT_DIR: /app/outputs/reports
+      CONFIG_PATH: /app/configs/default_config.json
+      TZ: Asia/Shanghai
+    volumes:
+      - ./outputs:/app/outputs
+      - ./work/logs:/app/work/logs
+    command: ["streamlit", "run", "ashare_replay/ui/streamlit_app.py", "--server.address=0.0.0.0", "--server.port=8501"]
+    ports:
+      - "127.0.0.1:8501:8501"
+
+  scheduler:
+    build: .
+    container_name: ashare_review_scheduler
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    env_file:
+      - .env
+    environment:
+      DATABASE_URL: postgresql://ashare:ashare_demo_password@db:5432/ashare_review
+      REPORT_OUTPUT_DIR: /app/outputs/reports
+      CONFIG_PATH: /app/configs/default_config.json
+      TZ: Asia/Shanghai
+    volumes:
+      - ./outputs:/app/outputs
+      - ./work/logs:/app/work/logs
+    command: ["python", "-m", "ashare_replay.cli", "scheduler"]
+
+volumes:
+  postgres_data:

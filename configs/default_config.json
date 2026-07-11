@@ -1,0 +1,62 @@
+{
+  "version": "2026.07.11",
+  "timezone": "Asia/Shanghai",
+  "report_times": {
+    "PRE_CLOSE_PREVIEW": "14:50",
+    "CLOSE_CONFIRMATION": "15:10",
+    "POST_CLOSE_FINAL": "17:30"
+  },
+  "sector_filters": {
+    "min_constituents": 5,
+    "min_coverage_ratio": 0.75
+  },
+  "money_flow_windows": [3, 5, 10, 20],
+  "leader_score_weights": {
+    "relative_return": 0.16,
+    "money_flow": 0.18,
+    "amount_liquidity": 0.12,
+    "sector_contribution": 0.12,
+    "limit_trend": 0.1,
+    "recent_activity": 0.1,
+    "market_relative": 0.08,
+    "sector_purity": 0.06,
+    "close_strength": 0.06,
+    "risk_penalty": 0.12
+  },
+  "lifecycle_thresholds": {
+    "launch_return_pct": 1.2,
+    "launch_net_ratio": 0.02,
+    "ferment_5d_flow_ratio": 0.08,
+    "accelerate_return_pct": 3.0,
+    "accelerate_amount_change_pct": 25.0,
+    "climax_up_ratio": 0.72,
+    "climax_limit_up_count": 3,
+    "divergence_tail_pullback_pct": -1.2,
+    "ebb_return_pct": -2.0,
+    "repair_return_pct": 1.0,
+    "shock_abs_return_pct": 0.8
+  },
+  "market_thresholds": {
+    "strong_up_ratio": 0.62,
+    "weak_down_ratio": 0.58,
+    "emotion_high_limit_up": 60,
+    "emotion_low_limit_down": 30,
+    "high_break_rate": 0.35
+  },
+  "watchlist": {
+    "max_items": 30,
+    "min_score": 68,
+    "allowed_lifecycle": ["启动", "发酵", "加速", "修复"]
+  },
+  "real_provider_probe": {
+    "probe_start_date": "20240102",
+    "probe_end_date": "20240105",
+    "probe_trade_date": "20240103",
+    "probe_news_start": "2024-01-03 09:00:00",
+    "probe_news_end": "2024-01-03 15:30:00"
+  },
+  "security": {
+    "max_download_filename_length": 120,
+    "allowed_download_extensions": [".json", ".md", ".html", ".pdf", ".csv"]
+  }
+}

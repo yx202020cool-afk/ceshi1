@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "AShareDailyReviewReport",
+  "type": "object",
+  "required": [
+    "metadata",
+    "market_overview",
+    "industry",
+    "concept",
+    "weekly_flow",
+    "watchlist",
+    "risks",
+    "generation"
+  ],
+  "properties": {
+    "metadata": {
+      "type": "object",
+      "required": [
+        "trade_date",
+        "report_type",
+        "report_version",
+        "as_of",
+        "is_final",
+        "provider",
+        "data_status",
+        "quality_warnings"
+      ]
+    },
+    "market_overview": { "type": "object" },
+    "industry": { "type": "object" },
+    "concept": { "type": "object" },
+    "weekly_flow": { "type": "array" },
+    "watchlist": { "type": "array" },
+    "risks": { "type": "array" },
+    "generation": { "type": "object" }
+  }
+}

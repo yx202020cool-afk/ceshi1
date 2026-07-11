@@ -1,0 +1,14 @@
+fastapi==0.118.2
+uvicorn[standard]==0.37.0
+streamlit==1.51.0
+pandas==2.3.3
+pydantic==2.13.4
+python-dotenv==1.1.1
+psycopg[binary]==3.2.11
+reportlab==4.4.9
+apscheduler==3.11.0
+akshare==1.18.64
+pytest==8.4.2
+ruff==0.14.2
+mypy==1.18.2
+types-python-dateutil==2.9.0.20250822

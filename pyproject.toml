@@ -1,0 +1,27 @@
+[project]
+name = "ashare-daily-review"
+version = "0.1.0"
+description = "A 股每日全局复盘与板块资金分析系统"
+requires-python = ">=3.11"
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+exclude = ["work", "outputs", ".venv", ".pytest_cache"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "S"]
+ignore = ["S101", "E501", "S104", "S311", "S607"]
+
+[tool.mypy]
+python_version = "3.11"
+strict = false
+ignore_missing_imports = true
+warn_unused_ignores = true
+warn_redundant_casts = true
+exclude = ["work", "outputs"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+addopts = "-q -p no:cacheprovider"

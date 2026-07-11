@@ -1,0 +1,5 @@
+{
+  "extends": "configs/default_config.json",
+  "mode": "demo",
+  "note": "演示配置使用固定种子生成数据，不代表真实行情。"
+}
