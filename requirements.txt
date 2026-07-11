@@ -1,6 +1,7 @@
 fastapi==0.118.2
 uvicorn[standard]==0.37.0
-streamlit==1.51.0
+streamlit==1.59.1
+pyarrow==24.0.0
 pandas==2.3.3
 pydantic==2.13.4
 python-dotenv==1.1.1
